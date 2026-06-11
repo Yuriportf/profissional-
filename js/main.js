@@ -4,8 +4,6 @@ import { initLibrary } from './modules/library.js';
 import { initScrollProgress, initBackToTop, initScrollReveal } from './lib/scrollEffects.js';
 import { Carousel } from './lib/carousel.js';
 
-// ... todo o resto do seu código permanece igual
-
 function scrollToSection(sectionId) {
   const element = document.getElementById(sectionId);
   if (element) {
@@ -85,21 +83,42 @@ document.addEventListener('DOMContentLoaded', () => {
     if (nextBtn) nextBtn.addEventListener('click', () => carousel.next());
   }
 
-  // Menu mobile
+  // Menu mobile - CORRIGIDO
   const mobileToggle = document.getElementById('mobileToggle');
   const headerNav = document.getElementById('header-nav');
   if (mobileToggle && headerNav) {
-    mobileToggle.addEventListener('click', () => {
+    const closeMenu = () => {
+      headerNav.classList.remove('open');
+      mobileToggle.classList.remove('active');
+      document.body.classList.remove('menu-open');
+    };
+
+    mobileToggle.addEventListener('click', (e) => {
+      e.stopPropagation();
       headerNav.classList.toggle('open');
       mobileToggle.classList.toggle('active');
-      document.body.style.overflow = headerNav.classList.contains('open') ? 'hidden' : '';
+      document.body.classList.toggle('menu-open');
     });
+
+    // Fechar ao clicar em qualquer link do menu
     document.querySelectorAll('.header-nav .nav-link').forEach(link => {
-      link.addEventListener('click', () => {
-        headerNav.classList.remove('open');
-        mobileToggle.classList.remove('active');
-        document.body.style.overflow = '';
-      });
+      link.addEventListener('click', closeMenu);
+    });
+
+    // Fechar ao clicar fora do menu (no backdrop)
+    document.addEventListener('click', (e) => {
+      if (headerNav.classList.contains('open') && 
+          !headerNav.contains(e.target) && 
+          !mobileToggle.contains(e.target)) {
+        closeMenu();
+      }
+    });
+
+    // Fechar ao redimensionar para desktop
+    window.addEventListener('resize', () => {
+      if (window.innerWidth > 768 && headerNav.classList.contains('open')) {
+        closeMenu();
+      }
     });
   }
 

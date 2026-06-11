@@ -9,8 +9,8 @@ export async function initLibrary() {
 
     if (!modal.dataset.loaded) {
       try {
-        // Caminho: de js/modules/ para a raiz -> data/books.json
-        const response = await fetch('../../data/books.json');
+        // Caminho relativo à raiz do site (ajuste se necessário)
+        const response = await fetch('/data/books.json');
         if (!response.ok) throw new Error(`HTTP ${response.status}`);
         const books = await response.json();
 
@@ -28,6 +28,8 @@ export async function initLibrary() {
         modal.dataset.loaded = 'true';
       } catch (err) {
         console.error('[library] Erro ao carregar livros:', err);
+        const grid = modal.querySelector('.book-cards');
+        if (grid) grid.innerHTML = '<p style="color: var(--text-muted);">Erro ao carregar biblioteca. Tente novamente mais tarde.</p>';
       }
     }
 
