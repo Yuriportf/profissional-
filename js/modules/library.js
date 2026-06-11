@@ -8,17 +8,22 @@ export async function initLibrary() {
     if (!modal) return;
 
     if (!modal.dataset.loaded) {
-      try {
-        // Caminho relativo à raiz do site (ajuste se necessário)
-        const response = await fetch('/data/books.json');
-        if (!response.ok) throw new Error(`HTTP ${response.status}`);
-        const books = await response.json();
+      const grid = modal.querySelector('.book-cards');
+      if (grid) grid.innerHTML = '<p style="color: var(--text-muted); text-align:center;">Carregando...</p>';
 
-        const grid = modal.querySelector('.book-cards');
+      try {
+        // Tenta diferentes caminhos
+        let response = await fetch('/data/books.json');
+        if (!response.ok) response = await fetch('data/books.json');
+        if (!response.ok) response = await fetch('./data/books.json');
+        if (!response.ok) throw new Error(`HTTP ${response.status}`);
+        
+        const books = await response.json();
+        
         if (grid) {
           grid.innerHTML = books.map(book => `
             <div class="book-card">
-              <img src="${book.cover}" alt="${book.title}" loading="lazy">
+              <img src="${book.cover}" alt="${book.title}" loading="lazy" onerror="this.src='/assets/livros/placeholder.jpg'">
               <h3>${book.title}</h3>
               <p>${book.author}</p>
               <a href="${book.pdfUrl}" target="_blank" rel="noopener noreferrer" class="btn-ver-pdf">Ver livro completo</a>
@@ -28,8 +33,9 @@ export async function initLibrary() {
         modal.dataset.loaded = 'true';
       } catch (err) {
         console.error('[library] Erro ao carregar livros:', err);
-        const grid = modal.querySelector('.book-cards');
-        if (grid) grid.innerHTML = '<p style="color: var(--text-muted);">Erro ao carregar biblioteca. Tente novamente mais tarde.</p>';
+        if (grid) {
+          grid.innerHTML = '<p style="color: var(--text-muted); text-align:center;">⚠️ Biblioteca temporariamente indisponível.</p>';
+        }
       }
     }
 
