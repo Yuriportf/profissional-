@@ -40,7 +40,8 @@ document.addEventListener('DOMContentLoaded', () => {
     type();
   }
 
-  initLibrary().catch(console.warn);
+  // CORREÇÃO: initLibrary não é assíncrona, então removemos o .catch
+  initLibrary();
   initScrollProgress('scroll-progress');
   initBackToTop('back-to-top');
   initScrollReveal('.reveal-section');
