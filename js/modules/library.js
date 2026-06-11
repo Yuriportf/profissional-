@@ -1,14 +1,19 @@
+// js/modules/library.js
 export async function initLibrary() {
   const openBtn = document.getElementById('openLibrary');
   if (!openBtn) return;
+
   openBtn.addEventListener('click', async () => {
     const modal = document.getElementById('libraryModal');
     if (!modal) return;
+
     if (!modal.dataset.loaded) {
       try {
+        // Caminho: de js/modules/ para a raiz -> data/books.json
         const response = await fetch('../../data/books.json');
         if (!response.ok) throw new Error(`HTTP ${response.status}`);
         const books = await response.json();
+
         const grid = modal.querySelector('.book-cards');
         if (grid) {
           grid.innerHTML = books.map(book => `
@@ -21,8 +26,11 @@ export async function initLibrary() {
           `).join('');
         }
         modal.dataset.loaded = 'true';
-      } catch (err) { console.error('[library]', err); }
+      } catch (err) {
+        console.error('[library] Erro ao carregar livros:', err);
+      }
     }
+
     modal.classList.add('active');
     document.body.style.overflow = 'hidden';
   });

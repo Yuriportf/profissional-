@@ -4,6 +4,8 @@ import { initLibrary } from './modules/library.js';
 import { initScrollProgress, initBackToTop, initScrollReveal } from './lib/scrollEffects.js';
 import { Carousel } from './lib/carousel.js';
 
+// ... todo o resto do seu código permanece igual
+
 function scrollToSection(sectionId) {
   const element = document.getElementById(sectionId);
   if (element) {

@@ -1296,3 +1296,313 @@ button { cursor:pointer; background:none; border:none; font-family:inherit; }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation-duration:.01ms !important; transition-duration:.01ms !important; scroll-behavior:auto !important; }
 }
+
+/* ========================================================
+   RESPONSIVIDADE OTIMIZADA - Mobile First
+   ======================================================== */
+
+/* Extra small devices (portrait phones) */
+@media (max-width: 480px) {
+  .container {
+    padding: 0 16px;
+  }
+
+  .section-heading {
+    font-size: clamp(2rem, 8vw, 3rem);
+    margin-bottom: 32px;
+  }
+
+  .hero-title {
+    white-space: normal;
+    font-size: clamp(2.2rem, 12vw, 3.5rem);
+    line-height: 1.1;
+  }
+
+  .hero-subtitle {
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    margin-bottom: 32px;
+  }
+
+  .btn-primary, .btn-biblioteca {
+    padding: 12px 24px;
+    font-size: 0.6rem;
+  }
+
+  .about-section, .education-section, .library-section, 
+  .events-section, .contact-section {
+    padding: 80px 0 60px;
+  }
+
+  .about-grid {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+
+  .about-image-wrapper {
+    max-width: 220px;
+    margin: 0 auto;
+  }
+
+  .about-photo {
+    filter: grayscale(0%);
+  }
+
+  .stacks-grid {
+    gap: 8px;
+    justify-content: center;
+  }
+
+  .stack-item {
+    width: 38px;
+    height: 38px;
+  }
+
+  .education-cards {
+    grid-template-columns: 1fr;
+    gap: 20px;
+    max-width: 100%;
+  }
+
+  .edu-card-img-wrap {
+    height: 160px;
+  }
+
+  .edu-card-title {
+    font-size: 1.3rem;
+  }
+
+  .contact-grid {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+
+  .contact-form {
+    padding: 24px;
+  }
+
+  .form-group input, 
+  .form-group textarea {
+    font-size: 14px;
+  }
+
+  .carousel-slide {
+    flex: 0 0 100%;
+  }
+
+  .carousel-img-wrap {
+    height: 220px;
+  }
+
+  .carousel-btn {
+    width: 32px;
+    height: 32px;
+  }
+
+  .carousel-dots {
+    gap: 6px;
+  }
+
+  .carousel-dot {
+    width: 16px;
+  }
+
+  .book-cards {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .book-card img {
+    max-width: 100px;
+    height: 140px;
+  }
+
+  .modal-content {
+    padding: 30px 20px;
+  }
+
+  .modal-title {
+    font-size: 1.5rem;
+  }
+
+  .back-to-top {
+    bottom: 16px;
+    right: 16px;
+    width: 38px;
+    height: 38px;
+  }
+
+  .footer-links-group {
+    flex-direction: column;
+    gap: 12px;
+  }
+}
+
+/* Small devices (landscape phones) */
+@media (min-width: 481px) and (max-width: 768px) {
+  .container {
+    padding: 0 24px;
+  }
+
+  .hero-title {
+    white-space: normal;
+    font-size: clamp(2.5rem, 10vw, 4rem);
+  }
+
+  .about-grid {
+    grid-template-columns: 1fr;
+    gap: 48px;
+  }
+
+  .about-image-wrapper {
+    max-width: 260px;
+    margin: 0 auto;
+  }
+
+  .education-cards {
+    grid-template-columns: 1fr;
+    max-width: 500px;
+    margin: 0 auto;
+  }
+
+  .contact-grid {
+    grid-template-columns: 1fr;
+    gap: 48px;
+  }
+
+  .carousel-slide {
+    flex: 0 0 calc(50% - 8px);
+  }
+
+  .carousel-img-wrap {
+    height: 240px;
+  }
+
+  .book-cards {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Medium devices (tablets) */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .container {
+    padding: 0 32px;
+  }
+
+  .hero-title {
+    font-size: clamp(3rem, 8vw, 6rem);
+  }
+
+  .about-grid {
+    grid-template-columns: 240px 1fr;
+    gap: 48px;
+  }
+
+  .education-cards {
+    max-width: 800px;
+  }
+
+  .contact-grid {
+    gap: 48px;
+  }
+
+  .carousel-slide {
+    flex: 0 0 calc(33.333% - 11px);
+  }
+}
+
+/* Large devices (desktops) */
+@media (min-width: 1025px) and (max-width: 1440px) {
+  .container {
+    max-width: 1200px;
+  }
+}
+
+/* Extra large devices */
+@media (min-width: 1441px) {
+  .container {
+    max-width: 1400px;
+  }
+
+  .hero-title {
+    font-size: 7rem;
+  }
+}
+
+/* Ajuste para telas muito pequenas (ex: Galaxy Fold) */
+@media (max-width: 320px) {
+  .hero-eyebrow {
+    font-size: 0.5rem;
+    letter-spacing: 0.3em;
+  }
+
+  .hero-title {
+    font-size: 2rem;
+  }
+
+  .hero-subtitle {
+    font-size: 0.6rem;
+    letter-spacing: 0.15em;
+  }
+
+  .btn-primary, .btn-biblioteca {
+    padding: 10px 18px;
+    font-size: 0.55rem;
+  }
+
+  .stack-item {
+    width: 34px;
+    height: 34px;
+  }
+
+  .contact-list li {
+    font-size: 0.7rem;
+  }
+}
+
+/* Landscape orientation fix */
+@media (max-height: 500px) and (orientation: landscape) {
+  .hero-section {
+    min-height: 380px;
+  }
+
+  .hero-title {
+    font-size: 2.5rem;
+    margin-bottom: 12px;
+  }
+
+  .hero-subtitle {
+    margin-bottom: 20px;
+  }
+
+  .hero-content {
+    padding: 0 16px;
+  }
+}
+
+/* Previne overflow horizontal */
+body {
+  overflow-x: hidden;
+}
+
+/* Ajusta imagens do carrossel para não distorcerem */
+.carousel-img-wrap img {
+  object-position: center 20%;
+}
+
+/* Melhora toque em botões no mobile */
+@media (pointer: coarse) {
+  .btn-primary, 
+  .btn-biblioteca,
+  .carousel-btn,
+  .edu-card,
+  .mobile-toggle,
+  .back-to-top,
+  .carousel-dot,
+  .modal-close,
+  .footer-social,
+  .contact-icon {
+    cursor: pointer;
+    touch-action: manipulation;
+  }
+}
