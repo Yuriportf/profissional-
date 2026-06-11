@@ -1,32 +1,23 @@
-'use strict';
-
 export function setItem(key, value, session = true) {
   try {
     const storage = session ? sessionStorage : localStorage;
     storage.setItem(key, JSON.stringify(value));
-  } catch (e) {
-    console.warn('[storage] setItem falhou:', e);
-  }
+  } catch (e) { console.warn('[storage] setItem:', e); }
 }
 
 export function getItem(key, session = true, defaultValue = null) {
   try {
     const storage = session ? sessionStorage : localStorage;
     const item = storage.getItem(key);
-    if (item === null) return defaultValue;
-    return JSON.parse(item);
-  } catch {
-    return defaultValue;
-  }
+    return item === null ? defaultValue : JSON.parse(item);
+  } catch { return defaultValue; }
 }
 
 export function removeItem(key, session = true) {
   try {
     const storage = session ? sessionStorage : localStorage;
     storage.removeItem(key);
-  } catch (e) {
-    console.warn('[storage] removeItem falhou:', e);
-  }
+  } catch (e) { console.warn('[storage] removeItem:', e); }
 }
 
 export const KEY_PLAYING = 'yuri_audio_playing';

@@ -1,9 +1,6 @@
 export function initScrollProgress(barId) {
   const bar = document.getElementById(barId);
-  if (!bar) {
-    console.warn(`[scrollEffects] Elemento "${barId}" não encontrado`);
-    return;
-  }
+  if (!bar) return;
   window.addEventListener('scroll', () => {
     const total = document.documentElement.scrollHeight - window.innerHeight;
     const progress = total > 0 ? (window.scrollY / total) * 100 : 0;
@@ -13,10 +10,7 @@ export function initScrollProgress(barId) {
 
 export function initBackToTop(btnId, threshold = 400) {
   const btn = document.getElementById(btnId);
-  if (!btn) {
-    console.warn(`[scrollEffects] Elemento "${btnId}" não encontrado`);
-    return;
-  }
+  if (!btn) return;
   window.addEventListener('scroll', () => {
     btn.classList.toggle('visible', window.scrollY > threshold);
   });

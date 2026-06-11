@@ -1,11 +1,9 @@
-// js/professional/main.js
-import { initStarsCanvas } from '../shared/starsCanvas.js';
-import { openModal, closeModal } from '../shared/modals.js';
-import { initLibrary } from './library.js';
-import { initScrollProgress, initBackToTop, initScrollReveal } from '../shared/scrollEffects.js';
-import { Carousel } from '../shared/carousel.js';
+import { initStarsCanvas } from './effects/starsCanvas.js';
+import { openModal, closeModal } from './lib/modals.js';
+import { initLibrary } from './modules/library.js';
+import { initScrollProgress, initBackToTop, initScrollReveal } from './lib/scrollEffects.js';
+import { Carousel } from './lib/carousel.js';
 
-// Função de scroll suave
 function scrollToSection(sectionId) {
   const element = document.getElementById(sectionId);
   if (element) {
@@ -15,14 +13,12 @@ function scrollToSection(sectionId) {
   }
 }
 window.scrollToSection = scrollToSection;
-
 window.scrollToTop = () => window.scrollTo({ top: 0, behavior: 'smooth' });
 
 document.addEventListener('DOMContentLoaded', () => {
-  // 1. Canvas estrelas
   initStarsCanvas();
 
-  // 2. Efeito digitação
+  // Efeito de digitação
   const rotatingWordEl = document.getElementById('rotating-word');
   if (rotatingWordEl) {
     const words = ['desenvolvedor', 'criativo', 'aprendiz', 'entusiasta de tecnologia'];
@@ -33,33 +29,23 @@ document.addEventListener('DOMContentLoaded', () => {
       if (!deleting) {
         rotatingWordEl.textContent = w.substring(0, ci + 1);
         ci++;
-        if (ci === w.length) {
-          deleting = true;
-          setTimeout(type, PAUSE);
-          return;
-        }
+        if (ci === w.length) { deleting = true; setTimeout(type, PAUSE); return; }
       } else {
         rotatingWordEl.textContent = w.substring(0, ci - 1);
         ci--;
-        if (ci === 0) {
-          deleting = false;
-          wi = (wi + 1) % words.length;
-        }
+        if (ci === 0) { deleting = false; wi = (wi + 1) % words.length; }
       }
       setTimeout(type, deleting ? TDEL : TTYPE);
     }
     type();
   }
 
-  // 3. Biblioteca
-  initLibrary().catch(err => console.warn('Erro biblioteca:', err));
-
-  // 4. Efeitos scroll
+  initLibrary().catch(console.warn);
   initScrollProgress('scroll-progress');
   initBackToTop('back-to-top');
   initScrollReveal('.reveal-section');
 
-  // 5. Carrossel
+  // Carrossel
   const carouselTrack = document.querySelector('.carousel-track');
   if (carouselTrack) {
     const updateSlidesPerView = () => {
@@ -82,15 +68,12 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     };
     carousel = new Carousel('.carousel-track', {
-      auto: false,
-      gap: 16,
-      slidesPerView: updateSlidesPerView(),
+      auto: false, gap: 16, slidesPerView: updateSlidesPerView(),
       onChange: (index) => updateCarouselDots(index)
     });
     updateCarouselDots(0);
     window.addEventListener('resize', () => {
-      const newSpv = updateSlidesPerView();
-      carousel.slidesPerView = newSpv;
+      carousel.slidesPerView = updateSlidesPerView();
       carousel.updateDimensions();
       updateCarouselDots(carousel.current);
     });
@@ -100,7 +83,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (nextBtn) nextBtn.addEventListener('click', () => carousel.next());
   }
 
-  // 6. Menu mobile
+  // Menu mobile
   const mobileToggle = document.getElementById('mobileToggle');
   const headerNav = document.getElementById('header-nav');
   if (mobileToggle && headerNav) {
@@ -118,7 +101,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // 7. Header scroll class
+  // Header scroll effect
   const header = document.getElementById('header');
   if (header) {
     window.addEventListener('scroll', () => {
@@ -126,7 +109,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // 8. Globais para modais
   window.openModal = openModal;
   window.closeModal = closeModal;
 });

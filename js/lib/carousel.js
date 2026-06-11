@@ -24,9 +24,7 @@ export class Carousel {
     const wrapper = this.track.parentElement;
     const wrapperRect = wrapper.getBoundingClientRect();
     const slideWidth = (wrapperRect.width - (this.gap * (this.slidesPerView - 1))) / this.slidesPerView;
-    this.slides.forEach(slide => {
-      slide.style.flex = `0 0 ${slideWidth}px`;
-    });
+    this.slides.forEach(slide => { slide.style.flex = `0 0 ${slideWidth}px`; });
     this.maxIndex = Math.max(0, this.slides.length - this.slidesPerView);
     if (this.current > this.maxIndex) this.current = this.maxIndex;
     this.applyTransform();
@@ -52,5 +50,6 @@ export class Carousel {
     if (this.slides.length <= this.slidesPerView) return;
     this.autoTimer = setInterval(() => this.next(), this.interval);
   }
-  restartAuto() { if (this.auto) { this.startAuto(); } }
+
+  restartAuto() { if (this.auto) this.startAuto(); }
 }

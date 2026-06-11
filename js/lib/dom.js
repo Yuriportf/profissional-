@@ -1,8 +1,6 @@
-'use strict';
- 
 export const $ = (id) => document.getElementById(id);
 export const $$ = (selector, ctx = document) => [...ctx.querySelectorAll(selector)];
- 
+
 export function createElement(tag, className = '', attributes = {}, children = []) {
   const el = document.createElement(tag);
   if (className) el.className = className;
